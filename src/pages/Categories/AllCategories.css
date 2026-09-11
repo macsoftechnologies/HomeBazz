@@ -1,0 +1,70 @@
+/* ==========================================================================
+   AllCategories.css - Clean & Simple Categories Page
+   ========================================================================== */
+
+.allcat-page {
+  font-family: 'Outfit', sans-serif;
+  background: #F8F7FF;
+  min-height: 100vh;
+  padding: 3rem 0 5rem;
+}
+
+.allcat-page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1A295A;
+  margin-bottom: 0.4rem;
+}
+
+.allcat-page-subtitle {
+  font-size: 1rem;
+  color: #5A6B8A;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── CATEGORY CARD ─── */
+.allcat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  gap: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.allcat-card:hover {
+  transform: translateY(-6px);
+}
+
+.allcat-card-img-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.allcat-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.allcat-card:hover .allcat-card-img {
+  transform: scale(1.07);
+}
+
+.allcat-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A295A;
+  text-align: center;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 576px) {
+  .allcat-page-title {
+    font-size: 1.5rem;
+  }
+}
