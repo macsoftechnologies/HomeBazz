@@ -27,6 +27,27 @@
   font-weight: 600;
 }
 
+.product-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 50px;
+  padding: 6px 14px 6px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5A6B8A;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.product-back-btn:hover {
+  background: #F8F7FF;
+  border-color: #EBE5FF;
+  color: #5E35B1;
+}
+
 /* ─── IMAGE GALLERY ─── */
 .product-gallery-main {
   position: relative;

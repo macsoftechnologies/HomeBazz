@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { categories, featuredCategories, trustFeatures, products } from '../../data/dummyData';
 import { BiRightArrowAlt, BiChevronRight, BiStar, BiFoodTag } from 'react-icons/bi';
@@ -57,6 +57,8 @@ const promoCards = [
 ];
 
 const Home = () => {
+  const [activeTrust, setActiveTrust] = useState(trustFeatures[0]?.id || 'tf1');
+
   return (
     <div className="home-page">
 
@@ -165,7 +167,10 @@ const Home = () => {
           <div className="row row-cols-3 row-cols-sm-3 row-cols-md-6 g-3 justify-content-center">
             {trustFeatures.map((tf) => (
               <div key={tf.id} className="col text-center">
-                <div className="trust-card d-flex flex-column align-items-center justify-content-center p-2 p-md-3">
+                <div 
+                  className={`trust-card d-flex flex-column align-items-center justify-content-center p-2 p-md-3 ${activeTrust === tf.id ? 'active' : ''}`}
+                  onClick={() => setActiveTrust(tf.id)}
+                >
                   <div
                     className="trust-icon-circle rounded-circle d-flex align-items-center justify-content-center mb-2"
                     style={{

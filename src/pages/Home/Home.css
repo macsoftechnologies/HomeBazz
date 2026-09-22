@@ -307,7 +307,7 @@
   cursor: pointer;
 }
 
-.trust-card:hover {
+.trust-card:hover, .trust-card.active {
   background: #ffffff;
   border-color: #7B61C9;
   box-shadow: 0 8px 28px rgba(94, 53, 177, 0.14);
@@ -321,7 +321,7 @@
   flex-shrink: 0;
 }
 
-.trust-card:hover .trust-icon-circle {
+.trust-card:hover .trust-icon-circle, .trust-card.active .trust-icon-circle {
   background-color: #5E35B1 !important; /* brand purple */
   color: #ffffff !important;
   transform: scale(1.08);
@@ -335,7 +335,7 @@
   transition: color 0.25s ease;
 }
 
-.trust-card:hover .trust-label {
+.trust-card:hover .trust-label, .trust-card.active .trust-label {
   font-weight: 700 !important;
 }
 

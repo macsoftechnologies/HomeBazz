@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { products, categories } from '../../data/dummyData';
-import { 
-  BiHome, BiRestaurant, BiHeart, BiLeaf, BiCloset, BiDiamond, BiShoppingBag, 
-  BiRightArrowAlt, BiChevronDown, BiGridAlt, BiListUl, BiStar, BiHeart as BiHeartOutline, BiCartAdd, BiChevronLeft, BiChevronRight, BiMenu, BiX
+import {
+  BiHome, BiRestaurant, BiHeart, BiLeaf, BiCloset, BiDiamond, BiShoppingBag,
+  BiRightArrowAlt, BiChevronDown, BiGridAlt, BiListUl, BiStar, BiHeart as BiHeartOutline, BiCartAdd, BiChevronLeft, BiChevronRight, BiMenu, BiX, BiSearch
 } from 'react-icons/bi';
 import './Properties.css';
 
@@ -34,37 +34,37 @@ const Properties = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [activeSubcat, setActiveSubcat] = useState('all');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
   // Dummy subcategories for the pill menu
-  const overviewPills = ['All', 'Pickles', 'Snacks', 'Sweets', 'Bakery', 'Spice Powders'];
+  const overviewPills = ['All', 'Snacks Pickles', 'Sweets', 'Bakery', 'Spice Powders', 'Ready-to-cook', 'Dairy', 'Beverages'];
   const listingPills = ['All (6)', 'Mango (1)', 'Gongura (1)', 'Lemon (1)', 'Mixed (1)', 'Tomato (1)', 'Onion (1)'];
 
   const currentPills = subcategory ? listingPills : overviewPills;
 
   // Duplicate dummy products to fill the grid
-  const displayedProducts = products.concat(products); 
+  const displayedProducts = products.concat(products);
 
   // Get current category name
-  const currentCategoryName = category 
+  const currentCategoryName = category
     ? categories.find(c => c.id === category)?.name || 'Products'
     : 'All Categories';
 
   const isListingMode = !!subcategory;
   const pageTitle = isListingMode ? (subcategory.charAt(0).toUpperCase() + subcategory.slice(1)) : (category ? `${currentCategoryName} Categories` : 'All Categories');
-  const pageSubtitle = isListingMode 
-    ? `Authentic homemade ${subcategory} from selected home makers` 
+  const pageSubtitle = isListingMode
+    ? `Authentic homemade ${subcategory} from selected home makers`
     : 'Explore our wide range of homemade delicacies';
 
   return (
     <div className="shop-page py-4 min-vh-100">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          
+
           {/* ─── SIDEBAR ─── */}
           <div className="col-lg-3">
             {/* Mobile overlay backdrop */}
             <div className={`shop-sidebar-backdrop d-lg-none ${isSidebarOpen ? 'show' : ''}`} onClick={() => setIsSidebarOpen(false)}></div>
-            
+
             <div className={`shop-sidebar-wrapper ${isSidebarOpen ? 'open' : ''}`}>
               <div className="shop-sidebar">
                 {/* Mobile Close Button */}
@@ -76,47 +76,56 @@ const Properties = () => {
                 </div>
 
                 <ul className="shop-sidebar-menu">
-                <li>
-                  <Link to="/shop" className={`shop-sidebar-item ${!category ? 'active' : ''}`} onClick={() => setIsSidebarOpen(false)}>
-                    <span className="shop-sidebar-icon"><BiHome /></span>
-                    All Categories
-                  </Link>
-                </li>
-                {categories.map(c => (
-                  <li key={c.id}>
-                    <Link 
-                      to={`/shop/${c.id}`} 
-                      className={`shop-sidebar-item ${category === c.id ? 'active' : ''}`}
-                      onClick={() => setIsSidebarOpen(false)}
-                    >
-                      <span className="shop-sidebar-icon">{iconMap[c.id] || <BiRestaurant />}</span>
-                      {c.name}
+                  <li>
+                    <Link to="/shop" className={`shop-sidebar-item ${!category ? 'active' : ''}`} onClick={() => setIsSidebarOpen(false)}>
+                      <div className="d-flex align-items-center gap-3">
+                        <span className="shop-sidebar-icon"><BiHome /></span>
+                        <span className="shop-sidebar-text">All Categories</span>
+                      </div>
+                      <BiChevronRight className="shop-sidebar-chevron" size={20} />
                     </Link>
                   </li>
-                ))}
-              </ul>
+                  {categories.map(c => (
+                    <li key={c.id}>
+                      <Link
+                        to={`/shop/${c.id}`}
+                        className={`shop-sidebar-item ${category === c.id ? 'active' : ''}`}
+                        onClick={() => setIsSidebarOpen(false)}
+                      >
+                        <div className="d-flex align-items-center gap-3">
+                          <span className="shop-sidebar-icon">{iconMap[c.id] || <BiRestaurant />}</span>
+                          <span className="shop-sidebar-text">{c.name}</span>
+                        </div>
+                        <BiChevronRight className="shop-sidebar-chevron" size={20} />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
 
-              {/* Promo Box */}
-              <div className="sidebar-promo-box d-none d-lg-block">
-                <div className="sidebar-promo-content">
-                  <h4 className="sidebar-promo-title">Fresh &<br/>Homemade</h4>
-                  <p className="sidebar-promo-subtitle">Good Food<br/>Good Mood</p>
-                  <Link to="/shop?sale=true" className="sidebar-promo-btn text-decoration-none">
-                    Shop Now <BiRightArrowAlt size={16} />
-                  </Link>
+                {/* Promo Box */}
+                <div className="sidebar-promo-box d-none d-lg-block mt-4">
+                  <div className="sidebar-promo-content">
+                    <span className="sidebar-promo-badge">DISCOVER</span>
+                    <h4 className="sidebar-promo-title">Unique &<br />Handmade Products</h4>
+                    <p className="sidebar-promo-subtitle">Support small business<br />and shop with heart <BiHeartOutline size={14}/></p>
+                    <Link to="/shop?sale=true" className="sidebar-promo-btn text-decoration-none mt-2">
+                      Explore Now <BiRightArrowAlt size={16} />
+                    </Link>
+                  </div>
+                  {/* Decorative element for promo */}
+                  <div className="sidebar-promo-decoration"></div>
                 </div>
-              </div>
               </div>
             </div>
           </div>
 
           {/* ─── MAIN CONTENT ─── */}
           <div className="col-lg-9 mt-4 mt-lg-0">
-            
+
             {/* Mobile Sidebar Toggle Button */}
             <div className="d-lg-none mb-3">
-              <button 
-                className="btn w-100 d-flex align-items-center justify-content-center gap-2" 
+              <button
+                className="btn w-100 d-flex align-items-center justify-content-center gap-2"
                 style={{ background: '#F3F0FF', color: '#5E35B1', fontWeight: 600, border: '1px solid #EBE5FF', borderRadius: '12px', padding: '12px' }}
                 onClick={() => setIsSidebarOpen(true)}
               >
@@ -125,8 +134,8 @@ const Properties = () => {
             </div>
 
             {/* Header & Breadcrumb */}
-            <div className="d-flex flex-column flex-sm-row justify-content-between align-items-sm-start mb-4">
-              <div>
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-start mb-4">
+              <div className="mb-3 mb-md-0">
                 <div className="shop-breadcrumb">
                   {isListingMode ? (
                     <><Link to="/">Home</Link> &gt; <Link to="/shop">Shop</Link> &gt; <Link to={`/shop/${category}`}>{currentCategoryName}</Link> &gt; {pageTitle}</>
@@ -138,31 +147,18 @@ const Properties = () => {
                 <p className="shop-page-subtitle mb-0">{pageSubtitle}</p>
               </div>
 
-              <div className="shop-header-actions mt-3 mt-sm-0 position-relative">
-                
-                {isListingMode ? (
-                  <>
-                    <div className="d-flex align-items-center gap-2">
-                      <select className="shop-sort-select shadow-sm" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                        <option value="popularity">Sort by: Popularity</option>
-                        <option value="newest">Sort by: Newest</option>
-                        <option value="price-low">Sort by: Price (Low to High)</option>
-                      </select>
-                    </div>
-                    <div className="shop-view-toggles d-none d-sm-flex">
-                      <button className={`shop-view-btn ${viewMode === 'grid' ? 'active' : ''}`} onClick={() => setViewMode('grid')}>
-                        <BiGridAlt size={20} />
-                      </button>
-                      <button className={`shop-view-btn ${viewMode === 'list' ? 'active' : ''}`} onClick={() => setViewMode('list')}>
-                        <BiListUl size={20} />
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <Link to="/shop" className="text-decoration-none fw-bold" style={{ color: '#5E35B1', fontSize: '0.9rem' }}>
-                    View All <BiRightArrowAlt />
-                  </Link>
-                )}
+              <div className="shop-header-actions d-flex flex-wrap align-items-center gap-3 justify-content-start justify-content-md-end">
+                <button type="button" onClick={() => navigate(-1)} className="hb-back-btn">
+                  <BiChevronLeft size={20} /> Back
+                </button>
+                <div className="shop-search-wrap">
+                  <BiSearch className="shop-search-icon" size={18} />
+                  <input
+                    type="text"
+                    className="shop-search-input"
+                    placeholder="Search products..."
+                  />
+                </div>
               </div>
             </div>
 
@@ -170,7 +166,7 @@ const Properties = () => {
             <div className="shop-subcategory-pills">
               {currentPills.map((subcat, idx) => {
                 const subcatKey = subcat.split(' ')[0].toLowerCase();
-                
+
                 const handlePillClick = () => {
                   if (!isListingMode) {
                     if (subcatKey !== 'all') {
@@ -182,7 +178,7 @@ const Properties = () => {
                 };
 
                 return (
-                  <button 
+                  <button
                     key={subcat}
                     className={`shop-pill ${(!isListingMode && subcatKey === 'all') ? 'active' : (isListingMode && activeSubcat === subcatKey ? 'active' : '')}`}
                     onClick={handlePillClick}
@@ -195,7 +191,7 @@ const Properties = () => {
 
             {/* Grid */}
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 g-md-4">
-              
+
               {!isListingMode ? (
                 // ─── OVERVIEW MODE: SHOW EXPLORE CARDS ───
                 exploreSubcategories.map((sub, idx) => (
@@ -220,7 +216,7 @@ const Properties = () => {
                 displayedProducts.map((product, idx) => (
                   <div className="col" key={`${product.id}-${idx}`}>
                     <div className="shop-product-card">
-                      
+
                       <div className="shop-product-img-wrap">
                         <div className="shop-product-heart">
                           <BiHeartOutline size={20} />
@@ -234,7 +230,7 @@ const Properties = () => {
                         <Link to={`/product/${product.id}`} className="text-decoration-none">
                           <h3 className="shop-product-title text-truncate" title={product.name}>{product.name}</h3>
                         </Link>
-                        
+
                         <div className="shop-product-meta">
                           <div className="shop-product-rating">
                             <BiStar size={14} color="#F5A623" />
@@ -257,7 +253,7 @@ const Properties = () => {
                           </button>
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                 ))
@@ -277,7 +273,7 @@ const Properties = () => {
                   <button className="shop-page-btn">10</button>
                   <button className="shop-page-btn nav-btn"><BiChevronRight size={20} /></button>
                 </div>
-                
+
                 <div className="d-flex align-items-center justify-content-between w-100 mt-2 px-2">
                   <div className="d-none d-sm-flex align-items-center gap-2" style={{ color: '#5A6B8A', fontStyle: 'italic', fontSize: '0.85rem' }}>
                     <BiLeaf size={16} color="#7B61C9" /> Good Food Brings People Together

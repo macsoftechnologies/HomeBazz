@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { products } from '../../data/dummyData';
-import { BiStar, BiHeart, BiCheckShield, BiMap, BiShareAlt, BiStore, BiBadgeCheck, BiPlus, BiMinus } from 'react-icons/bi';
+import { BiStar, BiHeart, BiCheckShield, BiMap, BiShareAlt, BiStore, BiBadgeCheck, BiPlus, BiMinus, BiChevronLeft } from 'react-icons/bi';
 import ProductCard from '../../components/common/ProductCard/ProductCard';
 import './PropertyDetails.css';
 
 const PropertyDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState(0);
   
@@ -18,10 +19,16 @@ const PropertyDetails = () => {
     <div className="product-details-page min-vh-100 py-5">
       <div className="container">
         
-        {/* Breadcrumb */}
-        <nav aria-label="breadcrumb" className="breadcrumb-custom">
-          Home &gt; <Link to="/shop">Shop</Link> &gt; <Link to={`/shop/${product.category.toLowerCase()}`}>{product.category}</Link> &gt; <span className="active">{product.name}</span>
-        </nav>
+        <div className="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+          {/* Breadcrumb */}
+          <nav aria-label="breadcrumb" className="breadcrumb-custom mb-0">
+            Home &gt; <Link to="/shop">Shop</Link> &gt; <Link to={`/shop/${product.category.toLowerCase()}`}>{product.category}</Link> &gt; <span className="active">{product.name}</span>
+          </nav>
+
+          <button onClick={() => navigate(-1)} className="hb-back-btn">
+            <BiChevronLeft size={20} /> Back
+          </button>
+        </div>
 
         {/* Product Main Section */}
         <div className="row g-5 mb-5 align-items-start">
